@@ -1,0 +1,368 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/static/vendor/bootstrap-select/css/bootstrap-select.min.css">
+<style>
+    table th {
+        font-size: 15px;
+    }
+    table td {
+        font-size: 15px;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                href="https://datatables.net">official DataTables documentation</a>.</p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+                <select class="selectpicker" data-live-search="true" data-style="btn-primary" data-width="25%" show-tick>
+                    <option value="Selecione" selected disabled hidden></option>
+                    {% for m in mtest %}
+                    <option>{{ m }}</option>
+                    {% endfor %}
+                    <option>Mustard</option>
+                    <option>Ketchup</option>
+                    <option>Barbecue</option>
+                  </select>
+                  
+            </div>
+            <form method="post" action="{% url 'teste' %}">
+                {% csrf_token %}
+                <div class="card-body">
+                    {{ form.competicao }}
+                </div>
+                <div class="card-body">
+                    {{ form.evento }}
+                </div>
+                <button type="submit" value="Submit">Sub</button>
+            </form>
+            <div>
+                <span class='badge badge-danger'>Relish</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Name</th>
+                            <th>Job Position</th>
+                            <th>Since</th>
+                            <th class="text-right">Salary</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Andrew Mike</td>
+                            <td>Develop</td>
+                            <td>2013</td>
+                            <td class="text-right">€ 99,225</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+    
+                            <td class="text-center">2</td>
+                            <td>John Doe</td>
+                            <td>Design</td>
+                            <td>2012</td>
+                            <td class="text-right">€ 89,241</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Alex Mike</td>
+                            <td>Design</td>
+                            <td>2010</td>
+                            <td class="text-right">€ 92,144</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-link btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-link btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>Mike Monday</td>
+                            <td>Marketing</td>
+                            <td>2013</td>
+                            <td class="text-right">€ 49,990</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td>Paul Dickens</td>
+                            <td>Communication</td>
+                            <td>2015</td>
+                            <td class="text-right">€ 69,201</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">person</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Desempenho Últimos Jogos</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                href="https://datatables.net">official DataTables documentation</a>.
+        </p>
+
+        <!-- DataTales Teams -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Últimos Jogos Time A</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Casa</th>
+                                <th class="text-center">FTHG</th>
+                                <th class="text-center">FTAG</th>
+                                <th>Fora</th>
+                                <th class="text-center">HTHG</th>
+                                <th class="text-center">HTAG</th>
+                                <th class="text-center">Gols</th>
+                                <th class="text-center">FT</th>
+                                <th class="text-center">HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                            </tr>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                            </tr>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <h2>Dynamic Pills</h2>
+        <p>To make the tabs toggleable, add the data-toggle="pill" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
+        <div class="d-flex justify-content-center"><ul class="nav nav-pills">
+          <li class="active"><a data-toggle="pill" href="#home"><img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 6rem;"
+            src="/static/_test.png" alt="..."></a></li>
+          <li><a data-toggle="pill" href="#menu1"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i><br>casa</a></li>
+          <li><a data-toggle="pill" href="#menu2"><img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 6rem; filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);"
+            src="/static/_test.svg" alt="..."></a></li>
+          <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
+        </ul></div><br>
+        
+        <div class="tab-content">
+          <div id="home" class="tab-pane fade in active">
+            <h3>HOME</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+            <div id="menu1" class="tab-pane fade">
+        <!-- DataTales Teams -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Últimos Jogos Time A</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Casa</th>
+                                <th class="text-center">FTHG</th>
+                                <th class="text-center">FTAG</th>
+                                <th>Fora</th>
+                                <th class="text-center">HTHG</th>
+                                <th class="text-center">HTAG</th>
+                                <th class="text-center">Gols</th>
+                                <th class="text-center">FT</th>
+                                <th class="text-center">HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                            </tr>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                            </tr>
+                            <tr>
+                                <td>16/10/2022</td>
+                                <td>Manchester United</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td>NewCastle</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center">0</td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            </div>
+
+
+          <div id="menu2" class="tab-pane fade">
+            <h3>Menu 2</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+          </div>
+          <div id="menu3" class="tab-pane fade">
+            <h3>Menu 3</h3>
+            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          </div>
+        </div>
+
+
+
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+
+
+
+
+
+    
+
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+    $(function () {
+        $('select').selectpicker();
+    });
+</script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="/static/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="/static/vendor/bootstrap-select/js/i18n/defaults-*.min.js"></script>
+{% endblock javascripts %}

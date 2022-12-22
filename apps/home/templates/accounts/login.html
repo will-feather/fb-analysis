@@ -1,5 +1,7 @@
 {% extends 'layouts/base-fullscreen.html' %}
 
+{% load static %}
+
 {% block title %} Login {% endblock title %}
 
 {% block stylesheets %}{% endblock stylesheets %}
@@ -60,7 +62,7 @@
                                         <hr>
                                         <div class="text-center">
                                             <img class="img-fluid px-3 px-sm-5 mt-0 mb-0" style="width: 25rem;"
-                                                src="/static/img/Team_lineup_amico.svg" alt="...">
+                                                src="{% static '/img/Team_lineup_amico.svg' %}" alt="...">
                                         </div>
                                         <!--<a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google

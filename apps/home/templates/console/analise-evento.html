@@ -1,0 +1,132 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/vendor/bootstrap-select/css/bootstrap-select.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Análise de Evento</h1>
+        <p class="mb-4">Análise gráfica de eventos e probabilidades de partida única. Selecione o evento e os gráficos a serem análisados.</p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Seção de Gráficos</h6>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-body">
+                            <div class="text-left" style="padding-left: 13%;">
+                                <label for="spcompt">Selecionar Competição:</label>
+                                <select id="spcompt" class="selectpicker" data-live-search="true" data-style="btn-warning" data-width="80%" show-tick>
+                                    <option selected disabled hidden>Selecione</option>
+                                    {% for cmp in competicoes %}
+                                        <option>{{ cmp }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-dark" type="button">
+                                    <i class="fa fa-filter"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        </div>
+                    <div class="col-5">
+                        <div class="card-body">
+                            <div class="text-left" style="padding-right: 13%;">
+                                <label for="spevent">Selecionar Evento:</label>
+                                <select id="spevent" class="selectpicker" data-live-search="true" data-style="btn-success" data-width="100%" show-tick>
+                                    <option selected disabled hidden>Selecione</option>
+                                    {% for evt in eventos %}
+                                        <option>{{ evt }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                <div class="col-4">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a id="desempJogos" href="#" onclick="call_ajax(1)">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                src="/static/img/graph_teams_table.svg" alt="...">
+                            </a><p>Desempenho Jogos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a id="desempJogos" href="#" onclick="call_ajax(2)">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                src="/static/img/graph_prob.svg" alt="...">
+                            </a><p>Probabilidades</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a href="#" onclick="call_ajax(3)">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                src="/static/img/graph_odds_ev.svg" alt="...">
+                            </a><p>Odds + EV</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if msg %}
+            <div class="container-fluid">
+                <div class="card-body" style="padding-left: 5%;padding-right: 5%;">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card bg-warning text-white shadow">
+                            <div class="card-body">
+                                Aviso
+                                <div class="text-white-100 small">Selecione ao menos um <b>Evento</b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content %}
+
+{% block javascripts %}
+<!-- Latest compiled and minified JavaScript -->
+<script src="/static/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="/static/vendor/bootstrap-select/js/i18n/defaults-*.min.js"></script>
+<script>
+    function call_ajax(grafico) {
+        var pag_graf = grafico;
+        var spevent = $("#spevent").val();
+
+        if (spevent == null) {
+            alert('Selecione um Evento!');
+        } else {
+            window.location=`/get/redirect/redirect_graficos?pag_graficos=${pag_graf}&evento=${spevent}`;
+        }
+    };
+</script>
+{% endblock javascripts %}

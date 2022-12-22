@@ -29,9 +29,18 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-spinner"></i>
-                <span>EM DEV</span></a>
+            <a class="nav-link" href="{% url 'tabelas_base' %}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Tabelas de Entrada</span>
+            </a>
+            <a class="nav-link" href="{% url 'tarefas' %}">
+                <i class="fas fa-fw fa-tasks"></i>
+                <span>Tarefas</span>
+            </a>
+            <a class="nav-link" href="{% url 'downloads' %}">
+                <i class="fas fa-fw fa-download"></i>
+                <span>Downloads</span>
+            </a>
         </li>
         <!--<li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -58,9 +67,9 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-spinner"></i>
-                <span>EM DEV</span></a>
+            <a class="nav-link" href="{% url 'analise_evento' %}">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Análise de Evento</span></a>
         </li>
 
         <!-- Nav Item - Tables -->

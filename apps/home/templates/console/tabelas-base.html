@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+{% load tag_library %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+
+<!-- Custom styles for this page -->
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css">
+<style>
+    .dataTables_length {
+        float: left !important;
+        padding-top: 6px !important;
+        }
+    .dt-buttons {
+        padding-left: 30px !important;
+        padding-bottom: 10px !important;
+        }
+    .dataTables_filter {
+        padding-top: 6px !important;
+        }
+    table th {
+        font-size: 14px;
+    }
+    table td {
+        font-size: 12px;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tabelas de Entrada</h1>
+        <p class="mb-4">Tabela de dados de entrada utilizadas para as análises</p>
+
+        <!-- DataTables Base -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tabela Base</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="dataTableBase" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Competição</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Time Casa</th>
+                                <th>Time Fora</th>
+                                <th>FTHG</th>
+                                <th>FTAG</th>
+                                <th>FTR</th>
+                                <th>HTHG</th>
+                                <th>HTAG</th>
+                                <th>HTR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in base %}
+                            <tr>
+                                <td>{{ item.div }}</td>
+                                <td>{{ item.date|date:"d/m/Y" }}</td>
+                                <td>{{ item.time }}</td>
+                                <td>{{ item.hometeam }}</td>
+                                <td>{{ item.awayteam }}</td>
+                                <td>{{ item.fthg }}</td>
+                                <td>{{ item.ftag }}</td>
+                                <td>{{ item.ftr }}</td>
+                                <td>{{ item.hthg }}</td>
+                                <td>{{ item.htag }}</td>
+                                <td>{{ item.htr }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- DataTables Odds -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tabela Odds</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="dataTableOdds" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Competição</th>
+                                <th>Evento</th>
+                                <th>Data</th>
+                                <th>Mercado</th>
+                                <th>Entrada</th>
+                                <th>A Favor</th>
+                                <th>Contra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in odds %}
+                              <tr>
+                                  <td>{{ item.competicao }}</td>
+                                  <td>{{ item.evento }}</td>
+                                  <td>{{ item.data }}</td>
+                                  <td>{{ item.mercado }}</td>
+                                  <td>{{ item.selecao }}</td>
+                                  <td>{{ item.a_favor }}</td>
+                                  <td>{{ item.contra }}</td>
+                              </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content %}
+
+{% block javascripts %}
+
+    <!-- Page level plugins -->
+    <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/static/js/demo/datatables-demo.js"></script>
+
+{% endblock javascripts %}

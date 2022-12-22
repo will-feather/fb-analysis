@@ -1,0 +1,1055 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+<style>
+
+  @import url(https://fonts.googleapis.com/css?family=Roboto);
+  
+  body #graphs {
+    font-family: Roboto, sans-serif;
+  }
+  
+
+  
+  
+</style>
+
+<script>
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+      )
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+      )
+    window.Promise ||
+      document.write(
+        '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+      )
+  </script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/react@16.12/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@16.12/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prop-types@15.7.2/prop-types.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-apexcharts@1.3.6/dist/react-apexcharts.iife.min.js"></script>
+  
+
+  <script>
+    // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+    // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+    var _seed = 42;
+    Math.random = function() {
+      _seed = _seed * 16807 % 2147483647;
+      return (_seed - 1) / 2147483646;
+    };
+  </script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                href="https://datatables.net">official DataTables documentation</a>.</p>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+            </div>
+            <div class="card-body">
+                <div id="app"></div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <div class="card-body">
+                    <div id="prob_home">
+                    </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card-body">
+                    <div id="prob_away">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card-body">
+                  <div id="prob_ev">
+                  </div>
+                </div>
+              </div>
+              <div class="col-0">
+                <div class="card-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <div class="card-body">
+                  <div id="gols_casa">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card-body">
+                  <div id="gols_fora">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gols Totais Partida -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <div class="card-body">
+                  <div id="gols_tot_bar">
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card-body">
+                  <div id="gols_tot_radar">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mercado Gols -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card-body">
+                  <div id="merc_gols">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Odds + EV -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Graficos</h6>
+          </div>
+
+          <div id="graphs" class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card-body">
+                  <div id="odds_ev">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content %}
+
+{% block javascripts %}
+<script src="/static/vendor/apexcharts-bundle/dist/apexcharts.min.js"></script>
+<script>
+  // Odds + EV
+  var options = {
+    series: [{
+      name: 'Porcentagem',
+      data: [-16, 6, 12, 3, -6, 13, -16, -100, -5, -7, 7, -2, 63, 20, -12, 0]
+    }],
+    chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        colors: {
+          ranges: [{
+            from: -100,
+            to: -46,
+            color: '#F15B46'
+          }, {
+            from: -45,
+            to: 0,
+            color: '#FEB019'
+          }]
+        },
+        columnWidth: '80%',
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val) {
+        return val + "%";
+      },
+      offsetY: -20,
+      style: {
+        fontSize: '12px',
+        colors: ["#304758"]
+      }
+    },
+    yaxis: {
+      title: {
+        //text: '--',
+      },
+      labels: {
+        formatter: function (y) {
+          return y.toFixed(0) + "%";
+        }
+      }
+    },
+    xaxis: {
+      type: 'category',
+      categories: [
+        'Time Casa', 'Empate', 'Time Fora', 'AM Sim', 'AM Não', 'Over 0,5 HT', 'Over 1,5 HT', 'Over 2,5 HT', 
+        'Over 0,5 FT', 'Over 1,5 FT', 'Over 2,5 FT', 'Over 3,5 FT', 'Under 0,5 FT', 'Under 1,5 FT', 'Under 2,5 FT', 'Under 3,5 FT'
+      ],
+      labels: {
+        rotate: -45
+      },
+      tickPlacement: 'on'
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#odds_ev"), options);
+  chart.render();
+
+</script>
+<script>
+  // Mercado Gols
+  var options = {
+    series: [{
+      name: 'Porcentagem',
+      data: [64, 82, 31, 14, 89, 75, 61, 34, 7, 5, 5, 11, 26, 40, 67, 93, 95, 95]
+    }],
+    /*annotations: {
+      points: [{
+        x: 'Teste',
+        seriesIndex: 0,
+        label: {
+          borderColor: '#775DD0',
+          offsetY: 0,
+          style: {
+            color: '#fff',
+            background: '#775DD0',
+          },
+          text: 'Tests are good',
+        }
+      }]
+    },*/
+    chart: {
+      height: 350,
+      type: 'bar',
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 10,
+        columnWidth: '50%',
+      }
+    },
+    dataLabels: {
+      enabled: false,
+      formatter: function (val) {
+        return val + "%";
+      },
+      offsetY: -20,
+      style: {
+        fontSize: '12px',
+        colors: ["#304758"]
+      }
+    },
+    stroke: {
+      width: 2
+    },
+    grid: {
+      row: {
+        colors: ['#fff', '#f2f2f2']
+      }
+    },
+    xaxis: {
+      labels: {
+        rotate: -45
+      },
+      categories: ['Ambas Sim', 'Over 0,5 HT', 'Over 1,5 HT', 'Over 2,5 HT', 'Over 0,5 FT', 'Over 1,5 FT',
+        'Over 2,5 FT', 'Over 3,5 FT', 'Over 4,5 FT', 'Over 5,5 FT', 'Over 6,5 FT', 'Under 0,5 FT', 
+        'Under 1,5 FT', 'Under 2,5 FT', 'Under 3,5 FT', 'Under 4,5 FT', 'Under 5,5 FT', 'Under 6,5 FT'
+      ],
+      tickPlacement: 'on'
+    },
+    yaxis: {
+      labels: {
+        show: true,
+        formatter: function (val) {
+          return val + "%";
+        }
+      },
+      //title: {text: 'Porcentagem',},
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: 'light',
+        type: "horizontal",
+        shadeIntensity: 0.25,
+        gradientToColors: undefined,
+        inverseColors: true,
+        opacityFrom: 0.85,
+        opacityTo: 0.85,
+        stops: [50, 0, 100]
+      },
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#merc_gols"), options);
+  chart.render();
+
+</script>
+<script>
+  // Gols Totais - Partida
+  var options = {
+    series: [{
+      name: 'Porcentagem Gols',
+      data: [9.7, 14.4, 18, 23.7, 27.9, 0, 0, 2.0, 2.0, 2.2, 0]
+    }],
+    chart: {
+    height: 350,
+    type: 'bar',
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 10,
+        dataLabels: {
+          position: 'top', // top, center, bottom
+        },
+      }
+    },
+    grid: {
+      row: {
+        colors: ['#fff', '#f2f2f2']
+      },
+      yaxis: {
+        lines: { 
+          show: false  //or just here to disable only y axis
+         }
+       }
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val) {
+        return val + "%";
+      },
+      offsetY: -20,
+      style: {
+        fontSize: '12px',
+        colors: ["#304758"]
+      }
+    },
+    xaxis: {
+      categories: ['0', '1', '2', '3', '4 ', '5 ', '6 ', '7 ', '8 ', '9 ', '10'],
+      //position: 'top',
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      crosshairs: {
+        fill: {
+          type: 'gradient',
+          gradient: {
+            colorFrom: '#D8E3F0',
+            colorTo: '#BED1E6',
+            stops: [0, 100],
+            opacityFrom: 0.4,
+            opacityTo: 0.5,
+          }
+        }
+      },
+      tooltip: {
+        enabled: true,
+      }
+    },
+    yaxis: {
+      max: 50,
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+        formatter: function (val) {
+          return val + "%";
+        }
+      }
+    },
+    title: {
+      text: '% Gols',
+      floating: true,
+      //offsetY: 330,
+      align: 'left',
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  undefined,
+        color:  '#263238'
+      }
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#gols_tot_bar"), options);
+  chart.render();
+
+  var options = {
+    series: [{
+      name: 'Porcentagem Gols',
+      data: [9.7, 14.4, 18, 23.7, 27.9, 0, 0, 2.0, 2.0, 2.2, 0],
+    }],
+    chart: {
+      height: 350,
+      type: 'radar',
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val) {
+        return val + "%";
+      },
+    },
+    plotOptions: {
+      radar: {
+        size: 140,
+        polygons: {
+          strokeColors: '#e9e9e9',
+          fill: {
+            colors: ['#f8f8f8', '#fff']
+          }
+        }
+      }
+    },
+    title: {
+      text: '% Gols',
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  undefined,
+        color:  '#263238'
+      }
+    },
+    colors: ['#FF4560'],
+    markers: {
+      size: 4,
+      colors: ['#fff'],
+      strokeColor: '#FF4560',
+      strokeWidth: 2,
+    },
+    tooltip: {
+      y: {
+        formatter: function(val) {
+          return val + "%";
+        }
+      }
+    },
+    xaxis: {
+      categories: ['0 Gol', '1 Gol', '2 Gols', '3 Gols', '4 Gols', '5 Gols', '6 Gols', '7 Gols', '8 Gols', '9 Gols', '10 Gols']
+    },
+    yaxis: {
+      tickAmount: 7,
+      labels: {
+        formatter: function(val, i) {
+          if (i % 2 === 0) {
+            return val
+          } else {
+            return ''
+          }
+        }
+      }
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#gols_tot_radar"), options);
+  chart.render();
+
+</script>
+<script>
+  // GOLS CASA FORA
+  // Casagols_tot_radar
+  var h_options = {
+        series: [{
+          name: 'Porcentagem',
+          data: [75, 75, 75, 25, 0, 0, 0, 75, 25, 0]
+        }],
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        title: {
+          text: 'Gols Casa',
+          floating: false,
+          style: {
+            fontSize:  '14px',
+            fontWeight:  'bold',
+            fontFamily:  undefined,
+            color:  '#263238'
+          },
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (value) {
+            return value + "%";
+          }
+        },
+        xaxis: {
+          categories: ['Over FT 0,5', 'Over FT 1,5', 'Over FT 2,5', 'Over FT 3,5', 'Over FT 4,5', 'Over FT 5,5', 'Over FT 6,5',
+                       'Over HT 0,5', 'Over HT 1,5', 'Over HT 2,5'
+          ],
+          labels: {
+            formatter: function(value, options) {
+              return value + '%'
+            }
+          }
+        },
+        yaxis: {
+          max: 100
+        },
+        tooltip: {
+          y: {
+            formatter: function(value, options) {
+              return value + '%'
+            },
+          },
+        },
+        colors: ['#33658a']
+      };
+
+      // Fora
+      var a_options = {
+        series: [{
+          name: 'Porcentagem',
+          data: [100, 80, 40, 40, 0, 0, 0, 100, 20, 0]
+        }],
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        title: {
+          text: 'Gols Fora',
+          floating: false,
+          style: {
+            fontSize:  '14px',
+            fontWeight:  'bold',
+            fontFamily:  undefined,
+            color:  '#263238'
+          },
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (value) {
+            return value + "%";
+          }
+        },
+        xaxis: {
+          categories: ['Over FT 0,5', 'Over FT 1,5', 'Over FT 2,5', 'Over FT 3,5', 'Over FT 4,5', 'Over FT 5,5', 'Over FT 6,5',
+                       'Over HT 0,5', 'Over HT 1,5', 'Over HT 2,5'
+          ],
+          labels: {
+            formatter: function(value, options) {
+              return value + '%'
+            }
+          }
+        },
+        yaxis: {
+          reversed: true,
+          max: 100
+        },
+        tooltip: {
+          y: {
+            formatter: function(value, options) {
+              return value + '%'
+            },
+          },
+        },
+        colors: ['#735751']
+      };
+
+      var gols_casa = new ApexCharts(document.querySelector("#gols_casa"), h_options);
+      gols_casa.render();
+
+      var gols_fora = new ApexCharts(document.querySelector("#gols_fora"), a_options);
+      gols_fora.render();
+
+</script>
+<script>
+
+  var options = {
+    chart: {
+      type: 'bar'
+    },
+    series: [{
+      name: 'Probabilidade',
+      data: [33.4,29.1,37.4]
+    }],
+    xaxis: {
+      categories: ['Time A','Empate','Time B']
+    },
+    colors:['#1E81B0', '#ABDBE3', '#E26242'],
+    plotOptions: {
+      bar: {
+        distributed: true
+      }
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, options) {
+          return value + '%'
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        formatter: function(value, options) {
+          return value + '%'
+        }
+      }
+    },
+    dataLabels: {
+        enabled: true,
+        formatter: function(value, options) {
+          return value + '%'
+        }
+    },
+    title: {
+      text: 'Probabilidades - FT',
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize:  '14px',
+        fontWeight:  'bold',
+        fontFamily:  undefined,
+        color:  '#263238'
+      },
+    }
+  }
+
+  var prob_home = new ApexCharts(document.querySelector("#prob_home"), options);
+  var prob_away = new ApexCharts(document.querySelector("#prob_away"), options);
+
+  prob_home.render();
+  prob_away.render();
+  
+</script>
+<script>
+  // Mercados Probabilidade + EV
+  var options = {
+    series: [{
+      name: 'EV',
+      data: [-16, 6, 12, 3, -6, 13]
+    }, {
+      name: 'Probabilidade',
+      data: [33.4, 29.1, 37.4, 64, 36, 82]
+    }],
+      chart: {
+      type: 'bar',
+      height: 430
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        dataLabels: {
+          position: 'top',
+        },
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      offsetX: -5,
+      offsetY: 1,
+      style: {
+        fontSize: '10px',
+        colors: ['#202020']
+      },
+      textAnchor: 'middle',
+      distributed: false,
+      formatter: function(value, options) {
+        return value + '%'
+      }
+    },
+    stroke: {
+      show: true,
+      width: 1,
+      colors: ['#fff']
+    },
+    tooltip: {
+      shared: true,
+      intersect: false
+    },
+    xaxis: {
+      categories: ['Time Casa', 'Empate', 'Time Fora', 'AM Sim', 'AM Não', 'Over 0,5 HT'],
+    },
+    fill: {
+      colors: [function({ value, seriesIndex, w }) {
+        if (value < 0) {
+            return '#ff595e'
+        } else {
+            return '#2983FF'
+        }
+      }, function({ value, seriesIndex, w }) {
+        return '#26E7A6'
+      }]
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#prob_ev"), options);
+  chart.render();
+
+</script>
+<script>
+  // bar with market
+  var options = {
+    series: [
+    {
+      name: 'Actual',
+      data: [
+        {
+          x: 'Time Casa',
+          y: -12,
+          goals: [
+            {
+              name: 'Expected',
+              value: 14,
+              strokeWidth: 2,
+              strokeDashArray: 2,
+              strokeColor: '#775DD0'
+            }
+          ]
+        },
+        {
+          x: 'Empate',
+          y: 44,
+          goals: [
+            {
+              name: 'Expected',
+              value: 54,
+              strokeWidth: 5,
+              strokeHeight: 10,
+              strokeColor: '#775DD0'
+            }
+          ]
+        },
+        {
+          x: 'Time Fora',
+          y: 44,
+          goals: [
+            {
+              name: 'Expected',
+              value: 54,
+              strokeWidth: 10,
+              strokeHeight: 0,
+              strokeLineCap: 'round',
+              strokeColor: '#775DD0'
+            }
+          ]
+        }
+      ]
+    }
+  ],
+    chart: {
+    height: 350,
+    type: 'bar'
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+    }
+  },
+  colors: ['#00E396'],
+  dataLabels: {
+    formatter: function(val, opt) {
+      const goals =
+        opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+          .goals
+  
+      if (goals && goals.length) {
+        return `${val} / ${goals[0].value}`
+      }
+      return val
+    }
+  },
+  legend: {
+    show: true,
+    showForSingleSeries: true,
+    customLegendItems: ['Actual', 'Expected'],
+    markers: {
+      fillColors: ['#00E396', '#775DD0']
+    }
+  }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#prob_evz"), options);
+  chart.render();
+</script>
+<script>
+  // bar with negative values
+  var options = {
+    series: [{
+      name: 'Males',
+      data: [0.4, 0.65, 0.76, 0.88, 1.5, 2.1, 2.9, 3.8, 3.9, 4.2, 4, 4.3, 4.1]
+    },
+    {
+      name: 'Females',
+      data: [-0.8, -1.05, -1.06, -1.18, -1.4, -2.2, -2.85, -3.7, -3.96, -4.22, -4.3, -4.4, -4.1]
+    }
+    ],
+      chart: {
+      type: 'bar',
+      height: 440,
+      stacked: true
+    },
+    colors: ['#008FFB', '#FF4560'],
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        barHeight: '80%',
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: 1,
+      colors: ["#fff"]
+    },
+    grid: {
+      xaxis: {
+        lines: {
+          show: false
+        }
+      }
+    },
+    yaxis: {
+      min: -5,
+      max: 5,
+      title: {
+        // text: 'Age',
+      },
+    },
+    tooltip: {
+      shared: false,
+      x: {
+        formatter: function (val) {
+          return val
+        }
+      },
+      y: {
+        formatter: function (val) {
+          return Math.abs(val) + "%"
+        }
+      }
+    },
+    title: {
+      text: 'EV Probabilidade Mercados'
+    },
+    xaxis: {
+      categories: ['85+', '80-84', '75-79', '70-74', '65-69', '60-64', '55-59', '50-54',
+        '45-49', '40-44', '35-39', '30-34', '25-29', '20-24', '15-19', '10-14', '5-9',
+        '0-4'
+      ],
+      title: {
+        text: 'Percent'
+      },
+      labels: {
+        formatter: function (val) {
+          return Math.abs(Math.round(val)) + "%"
+        }
+      }
+    },
+  };
+
+        var chart = new ApexCharts(document.querySelector("#prob_evx"), options);
+        chart.render();
+</script>
+
+
+<script>
+    // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+    // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+    var _seed = 42;
+    Math.random = function() {
+      _seed = _seed * 16807 % 2147483647;
+      return (_seed - 1) / 2147483646;
+    };
+  </script>
+<script type="text/babel">
+    class ApexChart extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+        
+          series: [{
+            name: 'Yearly Profit',
+            data: [{
+              x: '2011',
+              y: 1292
+            }, {
+              x: '2012',
+              y: 4432
+            }, {
+              x: '2013',
+              y: 5423
+            }, {
+              x: '2014',
+              y: 6653
+            }, {
+              x: '2015',
+              y: 8133,
+              fillColor: '#EB8C87',
+              strokeColor: '#C23829'
+            }, {
+              x: '2016',
+              y: 7132
+            }, {
+              x: '2017',
+              y: 7332
+            }, {
+              x: '2018',
+              y: 6553
+            }]
+          }],
+          options: {
+            chart: {
+              height: 350,
+              type: 'bar',
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '60%'
+              },
+            },
+            stroke: {
+              width: 0,
+            },
+            dataLabels: {
+              enabled: false
+            },
+            yaxis: {
+              labels: {
+                formatter: function(val) {
+                  return val / 1000 + 'K $'
+                }
+              }
+            },
+            fill: {
+              opacity: 1,
+            },
+            xaxis: {
+              type: 'datetime'
+            }
+          },
+        
+        
+        };
+      }
+
+    
+
+      render() {
+        return (
+          <div>
+            <div id="chart">
+              <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height={350} />
+            </div>
+            <div id="html-dist"></div>
+          </div>
+        );
+      }
+    }
+
+    const domContainer = document.querySelector('#app');
+    ReactDOM.render(React.createElement(ApexChart), domContainer);
+  </script>
+{% endblock javascripts %}
+<!--
+
+colors: [
+  function({ value, seriesIndex, w }) {
+    if (value < 5000) {
+      return '#FF0000'
+    } else {
+      return '#02DFDE'
+    }
+  }
+]
+
+-->

@@ -1,0 +1,289 @@
+{% extends "layouts/base.html" %}
+{% load tag_library %}
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Desempenho Últimos Jogos</h1>
+        <p class="mb-4">Selecione um dos times para visualizar o desempenho dos jogos por um dos times.</p>{{evento}}
+
+        <div class="d-flex justify-content-center">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a data-toggle="pill" href="#menu_home">
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 6rem;" src="/static/img/soccer-player-team-home.svg" alt="...">
+                            <p class="text-center" style="margin-top: -20px; color:black;">{{ home_team }}</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </li>
+                <li>
+                    <a data-toggle="pill" href="#menu_away">
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 6rem;" src="/static/img/soccer-player-team-away.svg" alt="...">
+                            <p class="text-center" style="margin-top: -20px; color:black;">{{ away_team }}</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="tab-content">
+            <div id="menu_home" class="tab-pane fade">
+                <!-- Tabela Todos Jogos -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Todos Jogos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Casa</th>
+                                        <th class="text-center">FTHG</th>
+                                        <th class="text-center">FTAG</th>
+                                        <th>Fora</th>
+                                        <th class="text-center">HTHG</th>
+                                        <th class="text-center">HTAG</th>
+                                        <th class="text-center">Gols</th>
+                                        <th class="text-center">FT</th>
+                                        <th class="text-center">HT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in home_matches_all %}
+                                        <tr>
+                                            <td>{{ m.date|date:"d/m/Y" }}</td>
+                                            <td>{{ m.hometeam }}</td>
+                                            <td>{{ m.fthg }}</td>
+                                            <td>{{ m.ftag }}</td>
+                                            <td>{{ m.awayteam }}</td>
+                                            <td>{{ m.hthg }}</td>
+                                            <td>{{ m.htag }}</td>
+                                            <td>{{ m.ftg }}</td>
+                                            {% if m.ftr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% elif m.ftr == 'H' and m.hometeam == home_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.ftr == 'A' and m.awayteam == home_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% endif %}
+                                            {% if m.htr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% elif m.htr == 'H' and m.hometeam == home_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.htr == 'A' and m.awayteam == home_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tabela Jogos Casa -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Jogos Casa</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Casa</th>
+                                        <th class="text-center">FTHG</th>
+                                        <th class="text-center">FTAG</th>
+                                        <th>Fora</th>
+                                        <th class="text-center">HTHG</th>
+                                        <th class="text-center">HTAG</th>
+                                        <th class="text-center">Gols</th>
+                                        <th class="text-center">FT</th>
+                                        <th class="text-center">HT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in home_matches_home %}
+                                        <tr>
+                                            <td>{{ m.date|date:"d/m/Y" }}</td>
+                                            <td>{{ m.hometeam }}</td>
+                                            <td>{{ m.fthg }}</td>
+                                            <td>{{ m.ftag }}</td>
+                                            <td>{{ m.awayteam }}</td>
+                                            <td>{{ m.hthg }}</td>
+                                            <td>{{ m.htag }}</td>
+                                            <td>{{ m.ftg }}</td>
+                                            {% if m.ftr == 'H' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.ftr == 'A' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% elif m.ftr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#000000;"></i></td>
+                                            {% endif %}
+                                            {% if m.htr == 'H' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.htr == 'A' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% elif m.htr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#000000;"></i></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="menu_away" class="tab-pane fade">
+                <!-- Tabela Todos Jogos Time Fora -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Todos Jogos</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Casa</th>
+                                        <th class="text-center">FTHG</th>
+                                        <th class="text-center">FTAG</th>
+                                        <th>Fora</th>
+                                        <th class="text-center">HTHG</th>
+                                        <th class="text-center">HTAG</th>
+                                        <th class="text-center">Gols</th>
+                                        <th class="text-center">FT</th>
+                                        <th class="text-center">HT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in away_matches_all %}
+                                        <tr>
+                                            <td>{{ m.date|date:"d/m/Y" }}</td>
+                                            <td>{{ m.hometeam }}</td>
+                                            <td>{{ m.fthg }}</td>
+                                            <td>{{ m.ftag }}</td>
+                                            <td>{{ m.awayteam }}</td>
+                                            <td>{{ m.hthg }}</td>
+                                            <td>{{ m.htag }}</td>
+                                            <td>{{ m.ftg }}</td>
+                                            {% if m.ftr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% elif m.ftr == 'H' and m.hometeam == away_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.ftr == 'A' and m.awayteam == away_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% endif %}
+                                            {% if m.htr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% elif m.htr == 'H' and m.hometeam == away_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.htr == 'A' and m.awayteam == away_team %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tabela Jogos Fora Time Fora -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Jogos Fora</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Casa</th>
+                                        <th class="text-center">FTHG</th>
+                                        <th class="text-center">FTAG</th>
+                                        <th>Fora</th>
+                                        <th class="text-center">HTHG</th>
+                                        <th class="text-center">HTAG</th>
+                                        <th class="text-center">Gols</th>
+                                        <th class="text-center">FT</th>
+                                        <th class="text-center">HT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in away_matches_away %}
+                                        <tr>
+                                            <td>{{ m.date|date:"d/m/Y" }}</td>
+                                            <td>{{ m.hometeam }}</td>
+                                            <td>{{ m.fthg }}</td>
+                                            <td>{{ m.ftag }}</td>
+                                            <td>{{ m.awayteam }}</td>
+                                            <td>{{ m.hthg }}</td>
+                                            <td>{{ m.htag }}</td>
+                                            <td>{{ m.ftg }}</td>
+                                            {% if m.ftr == 'A' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.ftr == 'H' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% elif m.ftr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#000000;"></i></td>
+                                            {% endif %}
+                                            {% if m.htr == 'A' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#5bb7b6;"></i></td>
+                                            {% elif m.htr == 'H' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#e85a50;"></i></td>
+                                            {% elif m.htr == 'D' %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#fdf37a;"></i></td>
+                                            {% else %}
+                                                <td class="text-center"><i class="fas fa-fw fa-circle" style="color:#000000;"></i></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}
